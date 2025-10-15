@@ -2,24 +2,28 @@ package com.example.labor_1
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.example.labor_1.databinding.ActivitySplashBinding
 
 class SplashActivity : AppCompatActivity() {
     private val TAG = "SplashActivity"
+    private lateinit var binding: ActivitySplashBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
+        binding = ActivitySplashBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         Log.d(TAG, "onCreate: SplashActivity created.")
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            val intent = Intent(this, MainActivity::class.java)
+        binding.startButton.setOnClickListener {
+            val message = binding.messageEditText.text.toString()
+
+            val intent = Intent(this, MainActivity::class.java).apply {
+                putExtra("user_message", message)
+            }
             startActivity(intent)
-            finish()
-        }, 2000)
+        }
     }
 
     override fun onStart() {

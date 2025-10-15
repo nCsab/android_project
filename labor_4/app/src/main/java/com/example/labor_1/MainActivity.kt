@@ -3,14 +3,21 @@ package com.example.labor_1
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.example.labor_1.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private val TAG = "MainActivity"
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         Log.d(TAG, "onCreate: MainActivity created.")
+
+        val receivedMessage = intent.getStringExtra("user_message")
+
+        binding.receivedTextView.text = receivedMessage ?: "No message received."
     }
 
     override fun onStart() {
