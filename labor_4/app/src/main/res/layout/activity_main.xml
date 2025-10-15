@@ -8,14 +8,15 @@
         tools:context=".MainActivity">
 
     <TextView
-            android:id="@+id/receivedTextView"
+            android:id="@+id/welcomeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            tools:text="Received Message Here"
+            android:textSize="22sp"
+            tools:text="Welcome to the Progr3ss App!"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

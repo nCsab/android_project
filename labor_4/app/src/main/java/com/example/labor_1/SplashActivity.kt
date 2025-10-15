@@ -2,13 +2,17 @@ package com.example.labor_1
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.HandlerThread
 import android.util.Log
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import com.example.labor_1.databinding.ActivitySplashBinding
 
 class SplashActivity : AppCompatActivity() {
     private val TAG = "SplashActivity"
     private lateinit var binding: ActivitySplashBinding
+    private val SPLASH_TIME_OUT: Long = 2000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,14 +20,24 @@ class SplashActivity : AppCompatActivity() {
         setContentView(binding.root)
         Log.d(TAG, "onCreate: SplashActivity created.")
 
-        binding.startButton.setOnClickListener {
-            val message = binding.messageEditText.text.toString()
+        val fadeIn = AnimationUtils.loadAnimation(this, android.R.anim.fade_in)
+        fadeIn.duration = 1500
 
-            val intent = Intent(this, MainActivity::class.java).apply {
-                putExtra("user_message", message)
-            }
+        binding.logoImageView.startAnimation(fadeIn)
+        binding.appNameTextView.startAnimation(fadeIn)
+        binding.taglineTextView.startAnimation(fadeIn)
+
+        val handlerThread = HandlerThread("SplashHandlerThread", -10)
+        handlerThread.start()
+
+        val handler = Handler(handlerThread.looper)
+
+        handler.postDelayed({
+            val intent = Intent(this@SplashActivity, MainActivity::class.java)
             startActivity(intent)
-        }
+
+            finish()
+        }, SPLASH_TIME_OUT)
     }
 
     override fun onStart() {
@@ -56,3 +70,4 @@ class SplashActivity : AppCompatActivity() {
         Log.d(TAG, "onDestroy: SplashActivity destroyed.")
     }
 }
+

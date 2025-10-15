@@ -15,9 +15,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         Log.d(TAG, "onCreate: MainActivity created.")
 
-        val receivedMessage = intent.getStringExtra("user_message")
-
-        binding.receivedTextView.text = receivedMessage ?: "No message received."
+        binding.welcomeTextView.text = "Welcome to the Progr3ss App!"
     }
 
     override fun onStart() {
@@ -50,3 +48,4 @@ class MainActivity : AppCompatActivity() {
         Log.d(TAG, "onDestroy: MainActivity destroyed.")
     }
 }
+
