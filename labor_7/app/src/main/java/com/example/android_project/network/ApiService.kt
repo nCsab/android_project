@@ -8,6 +8,7 @@ import com.example.android_project.model.Habit
 import com.example.android_project.model.HabitCategory
 import com.example.android_project.model.HabitResponse
 import com.example.android_project.model.ScheduleResponse
+import com.example.android_project.model.ProfileResponseDto
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -38,4 +39,19 @@ interface ApiService {
 
     @POST("/schedule/custom")
     suspend fun createSchedule(@Body schedule: CreateScheduleRequest): Response<JsonElement>
+
+    @GET("/schedule/{id}")
+    suspend fun getScheduleById(@retrofit2.http.Path("id") id: Long): Response<ScheduleResponse>
+
+    @retrofit2.http.DELETE("/schedule/{id}")
+    suspend fun deleteSchedule(@retrofit2.http.Path("id") id: Long): Response<Unit>
+
+    @GET("/profile")
+    suspend fun getProfile(): Response<ProfileResponseDto>
+
+    @GET("/habit/user/{userId}")
+    suspend fun getHabitsByUserId(@retrofit2.http.Path("userId") userId: Long): List<HabitResponse>
+
+    @POST("/auth/local/logout")
+    suspend fun logout(): Response<Unit>
 }

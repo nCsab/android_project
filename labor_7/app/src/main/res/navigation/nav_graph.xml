@@ -51,6 +51,19 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_profileFragment_to_addHabitFragment"
+            app:destination="@id/addHabitFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/scheduleDetailsFragment"
+        android:name="com.example.android_project.ui.schedule.ScheduleDetailsFragment"
+        android:label="fragment_schedule_details"
+        tools:layout="@layout/fragment_schedule_details">
+        <argument
+            android:name="scheduleId"
+            app:argType="long" />
     </fragment>
 
     <fragment

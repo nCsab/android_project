@@ -63,9 +63,13 @@ data class HabitCategory(
 
 data class ProgressResponseDto(
     val id: Long,
-    val userId: Long,
-    val progressValue: Double,
-    val updatedAt: LocalDateTime
+    val scheduleId: Long,
+    val date: String,
+    @SerializedName("logged_time")
+    val loggedTime: Int,
+    val notes: String? = null,
+    @SerializedName("is_completed")
+    val isCompleted: Boolean = false
 )
 
 data class ParticipantDto(
@@ -73,6 +77,22 @@ data class ParticipantDto(
     val name: String,
     val email: String,
     val profileImage: String? = null
+)
+
+data class ProfileResponseDto(
+    val id: Long,
+    val email: String,
+    val username: String,
+    val description: String? = null,
+    val profileImageUrl: String? = null,
+    val profileImageBase64: String? = null,
+    val coverImageUrl: String? = null,
+    val fcmToken: String? = null,
+    val preferences: Map<String, Any>? = null,
+    @SerializedName("created_at")
+    val createdAt: String? = null,
+    @SerializedName("updated_at")
+    val updatedAt: String? = null
 )
 
 data class CreateHabitRequest(

@@ -9,7 +9,9 @@ import com.example.android_project.databinding.ItemHomeScheduleBinding
 import com.example.android_project.model.ScheduleResponse
 import java.time.format.DateTimeFormatter
 
-class HomeScheduleAdapter : ListAdapter<ScheduleResponse, HomeScheduleAdapter.ViewHolder>(DiffCallback()) {
+class HomeScheduleAdapter(
+    private val onItemClick: (Long) -> Unit
+) : ListAdapter<ScheduleResponse, HomeScheduleAdapter.ViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemHomeScheduleBinding.inflate(
@@ -17,7 +19,7 @@ class HomeScheduleAdapter : ListAdapter<ScheduleResponse, HomeScheduleAdapter.Vi
             parent,
             false
         )
-        return ViewHolder(binding)
+        return ViewHolder(binding, onItemClick)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -25,8 +27,10 @@ class HomeScheduleAdapter : ListAdapter<ScheduleResponse, HomeScheduleAdapter.Vi
         holder.bind(item)
     }
 
-    class ViewHolder(private val binding: ItemHomeScheduleBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(
+        private val binding: ItemHomeScheduleBinding,
+        private val onItemClick: (Long) -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: ScheduleResponse) {
             binding.tvTitle.text = item.habit?.name ?: "Unknown Habit"
@@ -45,6 +49,10 @@ class HomeScheduleAdapter : ListAdapter<ScheduleResponse, HomeScheduleAdapter.Vi
             
             // Set icon based on category (simplified for now)
             // binding.ivIcon.setImageResource(...)
+
+            binding.root.setOnClickListener {
+                onItemClick(item.id)
+            }
         }
     }
 

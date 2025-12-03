@@ -69,7 +69,12 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupUi() {
-        adapter = HomeScheduleAdapter()
+        adapter = HomeScheduleAdapter { scheduleId ->
+            val bundle = Bundle().apply {
+                putLong("scheduleId", scheduleId)
+            }
+            findNavController().navigate(R.id.scheduleDetailsFragment, bundle)
+        }
         binding.rvSchedules.layoutManager = LinearLayoutManager(requireContext())
         binding.rvSchedules.adapter = adapter
         binding.rvSchedules.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
